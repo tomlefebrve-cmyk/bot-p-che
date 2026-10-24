@@ -1,58 +1,127 @@
-# AUTO FISHER (FishBot)
+# 🎃 FishBot - Bot de Pêche GTA RP
 
-Assistant pour le mini-jeu de pêche (FiveM) + auto-clic.
+<div align="center">
 
-## Pour l'utilisateur final
-Voir `LISEZMOI.txt` : double-clic sur `AUTO_FISHER.exe`, rien à installer.
+![Version](https://img.shields.io/badge/version-2.0.0-orange?style=for-the-badge)
+![Python](https://img.shields.io/badge/Python-3.10+-blue?style=for-the-badge&logo=python)
+![Platform](https://img.shields.io/badge/Windows%20%7C%20macOS-black?style=for-the-badge)
 
-## Fabriquer AUTO_FISHER.exe (une seule fois, sur Windows)
-- **Avec Python installé** : double-clic sur `build_exe.bat` → `AUTO_FISHER.exe` apparaît à la racine.
-- **Sans rien installer** : pousse le projet sur GitHub, onglet *Actions* → *Fabriquer AUTO_FISHER.exe*
-  → *Run workflow*, puis télécharge l'exe dans *Artifacts*.
+**Bot de pêche automatique avec interface Halloween**
 
-Le .exe est un seul fichier. Réglages et templates sont dans `%APPDATA%\AUTO_FISHER`.
-Au premier lancement il crée un raccourci « AUTO FISHER » sur le bureau.
+</div>
 
-## Mises à jour automatiques
-Versions publiées sur GitHub Releases : l'exe est fabriqué par GitHub (`.github/workflows/build-exe.yml`),
-le logiciel propose la mise à jour (bouton, jamais silencieux), vérifie l'empreinte SHA-256 puis se remplace.
-Mode d'emploi complet : `PUBLIER_UNE_MISE_A_JOUR.txt`. À remplir : `UPDATE_REPO` dans `config/version.py`.
+---
 
-## Lancer depuis les sources
+## ✨ Aperçu
+
+Interface moderne thème Halloween avec tableau de bord complet :
+
+- 🎃 **Tableau de bord** en temps réel
+- 🐟 Compteur de poissons pêchés
+- 🎯 Contrôle du bot (Démarrer / Arrêter)
+- ⚙️ Paramètres de pêche personnalisables
+- 📜 Journal d'activité
+- 🎒 Inventaire
+
+---
+
+## 🚀 Installation
+
+### 1. Télécharger
+Télécharge la dernière version depuis les **Releases** ou clone le repo :
+
+```bash
+git clone https://github.com/tomlefebrve-cmyk/bot-p-che.git
+cd bot-p-che
+```
+
+### 2. Installer les dépendances
+
 ```bash
 pip install -r requirements.txt
+```
+
+### 3. Lancer le bot
+
+**Windows :**
+```bash
+start.bat
+```
+ou
+```bash
 python main.py
 ```
 
-## Fonctions
-- **Pêche** : lit la lettre (Z/Q/S/D) avec les templates de `templates/keys/` (forme + vote sur
-  plusieurs images, refuse de deviner si deux lettres se ressemblent), suit l'arc et le curseur,
-  appuie quand le curseur est sur l'arc. Trois dispositions de couleurs : arc bleu/curseur rouge,
-  rouge/rouge (séparés par le mouvement), arc rouge/curseur bleu.
-- **Calibration automatique** (page Pêche) : trouve le cercle, la disposition et les couleurs
-  réelles de TON écran, et les enregistre.
-- **Fenêtre debug** (tableau de bord) : image capturée en direct avec cercle, lettre, arc, curseur.
-- **Touches** : envoyées selon la disposition réelle du clavier (AZERTY compris). `pydirectinput` seul
-  envoie des positions QWERTY : Z et Q partaient sur W et A. Bouton « Tester les touches » (page Pêche).
-- **Anti-spam** (réglable, activé par défaut) : n'appuie que sur un vrai mini-jeu (arc stable, lettre
-  confirmée, curseur qui avance régulièrement, re-vérifié juste avant l'appui), limite les appuis
-  (`anti_spam_max` par `anti_spam_window_s`), ralentit puis fait une pause après des échecs en série.
-- **Pause automatique** (pêche et auto-clic) : marche X s / pause Y s, en boucle.
-- **Auto-clic** : intervalle h/min/s/ms, infini ou N clics, bouton gauche/droit, position actuelle ou
-  X/Y (choix d'un point à l'écran), raccourcis clavier modifiables. Arrêt immédiat, sans clic en trop.
-
-## Vérifications sans le jeu
+**macOS / Linux :**
 ```bash
-python tools/sim_check.py [red|blue]   # faux mini-jeu + vrai moteur de pêche
-python tools/autocal_check.py          # calibration auto sur 6 « écrans » de couleurs différentes
-python tools/clicker_check.py          # auto-clic : intervalle, nombre de clics, pause auto, arrêt immédiat
-python tools/antispam_check.py         # faux mini-jeux : le bot ne doit pas appuyer dans le vide
-python tools/update_check.py           # mises à jour : faux serveur GitHub, falsification, retour arrière
-python tools/keys_check.py             # Z/Q/S/D envoyées sur la bonne touche, AZERTY et QWERTY
+chmod +x start.sh
+./start.sh
 ```
 
-## Réglages utiles (`user_config.json`)
-`target_color` (`blue` / `red` / `red_blue`), `key_min_confidence` (0.75), `key_min_margin` (0.06),
-`key_votes_needed` (2), `circle_fallback` (true), `key_send_mode` (`layout` / `classic`),
-`cycle_enabled` / `cycle_run_s` / `cycle_pause_s`, `anti_spam` / `anti_spam_max` / `anti_spam_window_s` /
-`anti_spam_pause_s` / `anti_spam_fail_limit`.
+---
+
+## 🎮 Utilisation
+
+1. Lance ton jeu **GTA RP** en mode fenêtré ou borderless
+2. Ouvre **FishBot**
+3. Configure tes paramètres de pêche (lieu, appât, intervalle...)
+4. Clique sur **▶ Démarrer**
+5. Laisse le bot pêcher pour toi 🎣
+
+### Raccourcis
+| Touche | Action          |
+|--------|-----------------|
+| `F8`   | Start / Stop    |
+| `F7`   | Afficher panneau|
+
+---
+
+## ⚙️ Configuration
+
+Tu peux modifier le fichier `user_config.json` pour ajuster :
+- Intervalle entre les lancers
+- Quantité d'appâts
+- Mode de pêche
+- etc.
+
+---
+
+## 📁 Structure du projet
+
+```
+autofisher/
+├── main.py              # Point d'entrée
+├── config.py            # Configuration
+├── user_config.json     # Config utilisateur
+├── requirements.txt     # Dépendances
+├── start.bat / start.sh # Scripts de lancement
+├── core/                # Logique principale
+├── detection/           # Détection (cercle, touches...)
+├── ui/                  # Interface graphique
+├── templates/           # Images de détection
+└── assets/              # Ressources (sons, images)
+```
+
+---
+
+## 🛠️ Prérequis
+
+- Python **3.10** ou supérieur
+- Windows 10/11 (recommandé) ou macOS
+- Droits **Accessibilité** + **Enregistrement d'écran** (macOS)
+
+---
+
+## 📝 Notes
+
+- Le bot fonctionne mieux en **fenêtré** ou **borderless**
+- Évite le plein écran exclusif
+- Pense à calibrer les couleurs si la détection est mauvaise
+
+---
+
+<div align="center">
+
+**Fait avec 🎃 par [tomlefebrve-cmyk](https://github.com/tomlefebrve-cmyk)**
+
+</div>

@@ -1,0 +1,50 @@
+PUBLIER UNE MISE À JOUR  (pour toi, le créateur — pas pour tes potes)
+====================================================================
+
+Comment ça marche : tu publies une « version » sur GitHub. GitHub fabrique AUTO_FISHER.exe tout seul
+(~5-10 min) et le joint à la version. Chez tes potes, au prochain lancement, un bouton vert
+« Mise à jour X disponible » apparaît dans le logiciel. Ils cliquent, ça se télécharge, se vérifie
+et le logiciel se relance. Rien n'est installé sans leur clic.
+
+A FAIRE UNE SEULE FOIS
+----------------------
+1. Crée un compte sur github.com (active la double authentification : si quelqu'un prend ton compte,
+   il peut envoyer un faux programme à tous tes potes).
+2. Clique sur « New repository » : nom (ex. auto-fisher), choisis « Public », crée-le.
+   (Public = le code est visible par tout le monde. C'est nécessaire pour que tes potes puissent
+   télécharger sans compte.)
+3. Envoie le contenu du dossier du projet : « uploading an existing file » → glisse tous les fichiers.
+   Si le dossier caché « .github » n'est pas pris : « Add file » > « Create new file », nom :
+   .github/workflows/build-exe.yml  et colle le contenu du fichier du même nom.
+4. Ouvre le fichier  config/version.py  (crayon « Edit ») et remplis la ligne :
+       UPDATE_REPO = "ton-pseudo/auto-fisher"
+   puis « Commit changes ».
+5. (Seulement si l'étape « Joindre l'exe à la release » échoue plus tard avec « Resource not accessible »)
+   Settings > Actions > General > Workflow permissions > « Read and write permissions » > Save.
+
+POUR CHAQUE MISE À JOUR
+-----------------------
+1. Envoie ta nouvelle version du code dans le dépôt (mêmes fichiers, remplace ceux qui changent).
+2. Onglet « Releases » > « Draft a new release ».
+3. « Choose a tag » : écris un numéro PLUS GRAND que le précédent, ex.  v2.2.0
+   puis « Create new tag on publish ».
+4. Titre : 2.2.0.   Description : la liste de ce qui change (c'est ce que tes potes verront).
+   Pour forcer la mise à jour (ex. version buguée à retirer) : ajoute une ligne  [OBLIGATOIRE]
+5. « Publish release » (pas « pre-release », pas « draft » : elles sont ignorées).
+6. Attends 5-10 min. Onglet « Actions » : quand c'est vert, la release contient AUTO_FISHER.exe.
+   (Avant ça, les potes qui vérifient voient « le fichier n'est pas encore prêt » : normal.)
+
+PREMIÈRE INSTALLATION CHEZ UN POTE
+----------------------------------
+Envoie-lui ce lien (il télécharge toujours la dernière version) :
+   https://github.com/TON-PSEUDO/auto-fisher/releases/latest/download/AUTO_FISHER.exe
+Windows peut dire « Windows a protégé votre PC » : « Informations complémentaires » > « Exécuter quand même ».
+Il met le fichier sur le Bureau ou dans Documents (pas dans Program Files). Ensuite, plus jamais besoin
+de lui renvoyer quoi que ce soit : les mises à jour passent par le bouton vert.
+
+CE QUE LE SYSTÈME VÉRIFIE
+-------------------------
+- Téléchargement en https depuis GitHub uniquement.
+- Empreinte SHA-256 obligatoire : si le fichier est abîmé ou modifié, la mise à jour est refusée.
+- Si le remplacement échoue, l'ancienne version est gardée.
+- Jamais de mise à jour pendant que la pêche ou l'auto-clic tourne.

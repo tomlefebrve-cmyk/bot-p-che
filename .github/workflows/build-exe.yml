@@ -1,0 +1,50 @@
+# Fabrique AUTO_FISHER.exe sur les serveurs GitHub et le joint à la version publiée.
+# Déclenchement : quand tu publies une « Release » sur GitHub (voir PUBLIER_UNE_MISE_A_JOUR.txt).
+# Test sans publier : onglet Actions > « Fabriquer AUTO_FISHER.exe » > Run workflow (l'exe est dans « Artifacts »).
+name: Fabriquer AUTO_FISHER.exe
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: La version du programme = le nom de la release (ex. v2.2.0 -> 2.2.0)
+        if: github.event_name == 'release'
+        run: python tools/set_version.py "${{ github.event.release.tag_name }}"
+
+      - name: Installation des composants
+        run: pip install -r requirements.txt pyinstaller
+
+      - name: Fabrication de l'exe
+        run: python tools/build_exe.py
+
+      - name: Empreinte SHA-256 (vérifiée par le programme avant d'installer une mise à jour)
+        shell: pwsh
+        run: |
+          $h = (Get-FileHash dist/AUTO_FISHER.exe -Algorithm SHA256).Hash.ToLower()
+          "$h  AUTO_FISHER.exe" | Out-File -Encoding ascii -NoNewline dist/AUTO_FISHER.exe.sha256
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AUTO_FISHER
+          path: |
+            dist/AUTO_FISHER.exe
+            dist/AUTO_FISHER.exe.sha256
+
+      - name: Joindre l'exe à la release
+        if: github.event_name == 'release'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload "${{ github.event.release.tag_name }}" dist/AUTO_FISHER.exe dist/AUTO_FISHER.exe.sha256 --clobber

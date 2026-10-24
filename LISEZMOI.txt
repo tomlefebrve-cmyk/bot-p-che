@@ -1,0 +1,51 @@
+AUTO FISHER — mode d'emploi (pour ceux qui n'y connaissent rien en informatique)
+================================================================================
+
+1) OUVRIR
+   Double-clique sur  AUTO_FISHER.exe.  C'est tout : rien à installer.
+   - La première fois, l'ouverture peut prendre 10 à 20 secondes. Attends.
+   - Un raccourci "AUTO FISHER" (avec l'icône du poisson) est créé tout seul sur le bureau.
+   - Si Windows affiche « Windows a protégé votre PC » : clique sur « Informations complémentaires »
+     puis « Exécuter quand même ». C'est normal pour un programme qui n'est pas signé.
+
+2) PÊCHE  (la première fois seulement)
+   a. Va dans la page « Pêche ».
+   b. Clique sur « Sélectionner la zone » et entoure le cercle de pêche du jeu.
+   c. Ouvre le mini-jeu de pêche, puis clique sur « Calibration automatique ».
+      Le logiciel règle tout seul les couleurs (bleu / rouge) pour TON écran.
+   d. Retourne sur « Tableau de bord » et clique sur le gros bouton vert « Démarrer ».
+   La « Fenêtre debug » montre ce que le bot voit : cercle, lettre, arc, curseur.
+   Pour arrêter : bouton « Arrêter ».
+
+   PAUSE AUTOMATIQUE : sur le tableau de bord, active « Pause automatique » et règle les secondes
+   (ex. marche 10 s / pause 10 s) : le bot pêche 10 s, s'arrête 10 s, reprend 10 s, etc.
+
+   ANTI-SPAM : sur le tableau de bord, l'interrupteur « Anti-spam » (activé par défaut) empêche le bot
+   d'appuyer dans le vide. Il n'appuie que s'il voit un vrai mini-jeu (arc fixe, lettre lue, curseur qui
+   avance), vérifie une dernière fois juste avant d'appuyer, et limite les appuis (par défaut 8 par 10 s,
+   réglable). Si rien de valide n'est vu plusieurs fois de suite, il fait une pause tout seul.
+
+   Les touches Z et Q ne marchent pas (S et D oui) ? Page « Pêche » > « Tester les touches » :
+   le logiciel tape Z, Q, S, D dans une case et te dit si c'est bon. Sinon clique sur
+   « Essayer l'autre mode d'envoi ».
+
+   Le bot ne voit rien ? Refais la « Calibration automatique » avec le mini-jeu bien visible.
+   Il se trompe de lettre ? Page « Pêche » > « Capturer template » : refais les 4 lettres Z, Q, S, D.
+
+3) AUTO-CLIC  (page « Auto-clic »)
+   Choisis le temps entre deux clics, le bouton (gauche / droit), où cliquer, et clique sur « Démarrer ».
+   Raccourcis par défaut (marchent même dans le jeu) :  Démarrer = Numpad -   Arrêter = Numpad *
+   Basculer = Numpad /.   Tu peux les changer avec le bouton « Raccourcis ».
+   Il a aussi sa « Pause automatique » (clique X secondes, pause Y secondes, en boucle).
+   L'auto-clic ne clique pas dans un jeu ou un programme ? Il est peut-être lancé en administrateur :
+   clique sur « Relancer en administrateur » (en bas de la page « Auto-clic »).
+   La pêche et l'auto-clic ne tournent pas en même temps.
+
+4) MISES À JOUR
+   Quand une nouvelle version existe, un bouton vert « Mise à jour X disponible » apparaît en bas à gauche.
+   Clique dessus, puis « Mettre à jour maintenant » : le logiciel se met à jour tout seul et se relance.
+   (Arrête la pêche et l'auto-clic avant.) Tu peux aussi vérifier à la main : page « À propos ».
+
+5) SI UN PROBLÈME
+   Page « Journal » : copie les dernières lignes et envoie-les à celui qui t'a donné le logiciel.
+   Tes réglages sont dans le dossier :  %APPDATA%\AUTO_FISHER
